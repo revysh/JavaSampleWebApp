@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans	xmlns="http://www.springframework.org/schema/security"
+				xmlns:beans="http://www.springframework.org/schema/beans"  				
+  				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  				xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-6.0.xsd">
+	<!--_____________________________________________________________________________________ 
+  								These loads the Filters - Begin
+  	Comment the below and and ones in the web.xml file to remove authentication
+  	______________________________________________________________________________________-->
+	<beans:bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy"/>  
+	
+	<http auto-config='true'>
+	  	<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />     	
+	</http>
+	<!--_____________________________________________________________________________________ 
+  								These loads the Filters - End
+  	______________________________________________________________________________________-->
+  	  	
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="bob" password="bob" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
